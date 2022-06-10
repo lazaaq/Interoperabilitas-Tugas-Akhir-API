@@ -1,21 +1,17 @@
 <?php
-    // $servername = "localhost";
-    // $user = "root";
-    // $pass = "";
-    // $database = "disa";
+    $servername = "localhost";
+    $user = "root";
+    $pass = "";
+    $database = "disa";
 
-    // // Create connection
+    // Create connection
 
-    // $conn = mysqli_connect($servername,$user,$pass,$database);
+    $conn = mysqli_connect($servername,$user,$pass,$database);
 
-    // // Validate connection
-    // if (!$conn) {
-    //     die("Failed to connect : " . mysqli_connect_error());
-    // }
-
-    $db = parse_url(getenv("DATABASE_URL"));
-    $db["path"] = ltrim($db["path"], "/");
-    var_dump($db);
+    // Validate connection
+    if (!$conn) {
+        die("Failed to connect : " . mysqli_connect_error());
+    }
 ?>
 
 
