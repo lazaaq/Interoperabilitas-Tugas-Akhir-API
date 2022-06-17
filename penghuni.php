@@ -1,7 +1,4 @@
 <?php
-
-use function PHPSTORM_META\type;
-
     require_once "method.php";
     $penghuni = new PenghuniKos();
     $request_method=$_SERVER["REQUEST_METHOD"];

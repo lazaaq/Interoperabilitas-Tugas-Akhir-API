@@ -73,25 +73,37 @@
             }
     
             if (!$variableInvalid) {
-                $nama = $dataPOST['nama'];
-                $asal = $dataPOST['asal'];
-                $kampus = $dataPOST['kampus'];
-                $no_hp = $dataPOST['no_hp'];
-                $kamar = $dataPOST['kamar'];
-    
-                $query = "INSERT INTO finalproject (nama, asal, kampus, kamar, no_hp) VALUES ('$nama', '$asal', '$kampus', '$kamar', '$no_hp')";
+                $query = "SELECT * FROM finalproject WHERE kamar=" . $dataPOST['kamar'];
                 $result = mysqli_query($conn,$query);
-                
-                if ($result) {
-                    $response = array(
-                        'status' => 1,
-                        'message' => 'Insert Success',
-                        'data' => $dataPOST
-                    );
+                if($result->num_rows != 0) {
+                    $variableInvalid = true;
+                }
+                if (!$variableInvalid) {
+                    $nama = $dataPOST['nama'];
+                    $asal = $dataPOST['asal'];
+                    $kampus = $dataPOST['kampus'];
+                    $no_hp = $dataPOST['no_hp'];
+                    $kamar = $dataPOST['kamar'];
+        
+                    $query = "INSERT INTO finalproject (nama, asal, kampus, kamar, no_hp) VALUES ('$nama', '$asal', '$kampus', '$kamar', '$no_hp')";
+                    $result = mysqli_query($conn,$query);
+                    
+                    if ($result) {
+                        $response = array(
+                            'status' => 1,
+                            'message' => 'Insert Success',
+                            'data' => $dataPOST
+                        );
+                    } else {
+                        $response = array(
+                            'status' => 0,
+                            'message' => 'Insert Failed'
+                        );
+                    }
                 } else {
                     $response = array(
                         'status' => 0,
-                        'message' => 'Insert Failed'
+                        'message' => 'Room already been used, try another room'
                     );
                 }
             } else {
@@ -122,25 +134,37 @@
             $dataPOST['id'] = $id;
             
             if (!$variableInvalid) {
-                $nama = $dataPOST['nama'];
-                $asal = $dataPOST['asal'];
-                $kampus = $dataPOST['kampus'];
-                $no_hp = $dataPOST['no_hp'];
-                $kamar = $dataPOST['kamar'];
-    
-                $query = "UPDATE finalproject SET nama='$nama', asal='$asal', kampus='$kampus', no_hp='$no_hp', kamar='$kamar' WHERE id=$id";
-                $result = mysqli_query($conn, $query);
-                
-                if ($result) {
-                    $response = array(
-                        'status' => 1,
-                        'message' => 'Update Success',
-                        'data' => $dataPOST
-                    );
+                $query = "SELECT * FROM finalproject WHERE kamar=" . $dataPOST['kamar'];
+                $result = mysqli_query($conn,$query);
+                if($result->num_rows != 0) {
+                    $variableInvalid = true;
+                }
+                if(!$variableInvalid) {
+                    $nama = $dataPOST['nama'];
+                    $asal = $dataPOST['asal'];
+                    $kampus = $dataPOST['kampus'];
+                    $no_hp = $dataPOST['no_hp'];
+                    $kamar = $dataPOST['kamar'];
+        
+                    $query = "UPDATE finalproject SET nama='$nama', asal='$asal', kampus='$kampus', no_hp='$no_hp', kamar='$kamar' WHERE id=$id";
+                    $result = mysqli_query($conn, $query);
+                    
+                    if ($result) {
+                        $response = array(
+                            'status' => 1,
+                            'message' => 'Update Success',
+                            'data' => $dataPOST
+                        );
+                    } else {
+                        $response = array(
+                            'status' => 0,
+                            'message' => 'Update Failed'
+                        );
+                    }
                 } else {
                     $response = array(
                         'status' => 0,
-                        'message' => 'Update Failed'
+                        'message' => 'Room already been used, try another room'
                     );
                 }
             } else {
